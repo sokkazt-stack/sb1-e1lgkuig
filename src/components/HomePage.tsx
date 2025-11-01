@@ -2,7 +2,6 @@
 //Mostra um cabeçalho com título e descrição, botões que levam a questionários, secções com passos (features) e uma chamada à ação final. 
 //Inclui animações simples (com Framer Motion) e ícones decorativos para tornar a página mais dinâmica e agradável.
 
-```jsx
 import React from 'react'  // Importa a biblioteca React, necessária para criar componentes de interface
 import { Link } from 'react-router-dom'  // Importa 'Link' para navegar entre páginas sem recarregar o site
 import { motion } from 'framer-motion'  // Importa 'motion' para criar animações simples e fluidas
@@ -189,4 +188,3 @@ export const HomePage = () => {  // Declara um componente funcional chamado 'Hom
     </div>
   )  // Fecha o return
 }  // Fecha o componente HomePage
-```

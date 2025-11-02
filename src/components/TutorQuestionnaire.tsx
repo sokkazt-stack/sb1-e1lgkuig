@@ -23,7 +23,7 @@
 // 8. Renderiza a pergunta atual, opções, barra de progresso e botões de navegação com animações.
 // 9. Cada botão de opção chama handleAnswer com o valor selecionado.
 
-//-----------------CÓDIGO COMENTADO-----------------
+//-----------------CODE-----------------
 
 import React, { useState, useEffect } from 'react' // Importa React e hooks para gerir estado e efeitos
 import { useNavigate } from 'react-router-dom' // Importa função para navegar entre páginas

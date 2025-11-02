@@ -1,8 +1,9 @@
+//-----------RESUMO----------------------------
 //Este código define um componente React chamado Login, que mostra um formulário de login usando o componente AuthModal. 
 //Ele verifica se o utilizador já está autenticado e, nesse caso, redireciona automaticamente para a página de perfil. 
 //Caso contrário, permite que o utilizador faça login e, após concluir, também é redirecionado para a página de perfil.
 
-//Resumo do fluxo de autenticação:
+//--------- FLUXO DO CÒDIGO --------------------
 //1.Usuário abre a página de login (Login).
 //2.Se já estiver logado (user não é null), useEffect redireciona para /profile.
 //3.Caso não esteja logado, o AuthModal aparece.
@@ -10,7 +11,7 @@
 //5.AuthModal processa login/registo, verifica erros e, se tudo estiver correto, chama onComplete(userId).
 //6.handleComplete é chamado, e o utilizador é redirecionado para /profile.
 
-  
+//---------CODE----------------
 import React, { useEffect } from 'react'  // Importa o React e o hook useEffect, usado para executar código quando algo muda
 import { useNavigate } from 'react-router-dom'  // Importa o hook para navegar entre páginas sem recarregar o site
 import { useAuth } from '../contexts/AuthContext'  // Importa o contexto de autenticação para saber se o utilizador está logado

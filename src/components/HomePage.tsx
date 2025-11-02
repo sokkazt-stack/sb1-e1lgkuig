@@ -1,7 +1,17 @@
+//-----------RESUMO----------------------------
 //Objetivo geral: Este ficheiro define um componente React chamado `HomePage` que constrói a página inicial de um site para encontrar explicadores. 
 //Mostra um cabeçalho com título e descrição, botões que levam a questionários, secções com passos (features) e uma chamada à ação final. 
 //Inclui animações simples (com Framer Motion) e ícones decorativos para tornar a página mais dinâmica e agradável.
 
+//--------- FLUXO DO CÒDIGO --------------------
+//O código importa React, Framer Motion, componentes de interface, ícones e Link do React Router.
+//Cria o componente HomePage, que apresenta a página inicial do site de forma visual e animada.
+//Mostra uma secção principal com título e descrição, destacando “encontrar o explicador perfeito”, com animações de entrada suaves.
+//Inclui dois botões principais: um para estudantes responderem ao questionário e outro para quem quer ser explicador, ambos com ícones e efeitos visuais.
+//Apresenta uma secção de funcionalidades explicando em três passos como o serviço funciona: responder ao questionário, encontrar matches perfeitos e começar a aprender, cada passo com ícone, título e descrição animados.
+//Finaliza com uma secção de chamada para ação (CTA), incentivando o utilizador a explorar o marketplace de explicadores, com botão destacado e animado.
+
+//---------CODE----------------
 import React from 'react'  // Importa a biblioteca React, necessária para criar componentes de interface
 import { Link } from 'react-router-dom'  // Importa 'Link' para navegar entre páginas sem recarregar o site
 import { motion } from 'framer-motion'  // Importa 'motion' para criar animações simples e fluidas

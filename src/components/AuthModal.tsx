@@ -1,7 +1,17 @@
+//-----------RESUMO----------------------------
 //Este código define um componente React chamado AuthModal, que mostra um formulário de autenticação (login ou registo). 
 //Ele permite que o utilizador crie uma conta nova ou entre numa já existente, usando o email e a palavra-passe. 
 //O código também lida com validação, erros, animações visuais e integração com o abse de dadso (Supabase).
 
+//--------- FLUXO DO CÒDIGO --------------------
+//O código importa React, Framer Motion, componentes de interface, contexto de autenticação e ícones.
+//Cria o componente AuthModal, que permite ao utilizador criar conta ou iniciar sessão.
+//Guarda estados como modo atual (login/registo), dados dos campos, visibilidade da palavra-passe, erros e carregamento.
+//A função handleSubmit verifica a configuração do Supabase, tenta registar ou autenticar o utilizador e chama onComplete se for bem-sucedido.
+//Mostra uma interface animada com campos de nome, email e palavra-passe, botão de envio com feedback visual e mensagens de erro.
+//Inclui ainda um botão para alternar entre os modos de “Criar conta” e “Iniciar sessão”.
+
+//---------CODE----------------
 import React, { useState } from 'react'  // Importa o React e o hook useState, usado para guardar e alterar valores no estado do componente
 import { motion } from 'framer-motion'  // Importa a biblioteca Framer Motion, usada para criar animações suaves
 import { Card } from './ui/card'  // Importa o componente "Card" (caixa visual estilizada)

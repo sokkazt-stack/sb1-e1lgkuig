@@ -1,14 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { Card } from './ui/card'
-import { Button } from './ui/button'
-import { Input } from './ui/input'
-import { supabase, TutorData } from '../lib/supabase'
-import { Search, Star, Mail, MapPin, Clock } from 'lucide-react'
+//-----------------RESUMO GERAL-----------------
+//Este código cria uma página de "Marketplace" para uma plataforma de explicadores online.
+//Ele mostra uma lista de tutores (mock data neste exemplo), permitindo pesquisar por nome, disciplina ou localização e filtrar por disciplina.
+//Cada tutor é exibido com foto, nome, avaliação, localização, disponibilidade, matérias e biografia resumida.
+//O utilizador pode ver o perfil completo do tutor ou enviar email diretamente através de um botão de contacto.
+
+//-----------------FLUXO DO CÓDIGO-----------------
+// 1. Importa React, hooks, navegação, animações, componentes visuais e ícones.
+// 2. Define um array de "mockTutors" com dados de tutores de exemplo para exibição.
+// 3. Cria o componente Marketplace com estados: tutors, filteredTutors, searchTerm e selectedSubject.
+// 4. useEffect vazio para futura carga de dados reais do Supabase.
+// 5. useEffect que filtra os tutores conforme o searchTerm e selectedSubject sempre que algum deles muda.
+// 6. Função handleContactTutor abre o email do utilizador para contactar o tutor selecionado.
+// 7. Define array de disciplinas disponíveis para filtro.
+// 8. Renderiza cabeçalho da página, campo de pesquisa e botões de filtro de disciplina.
+// 9. Mostra quantidade de resultados e lista de tutores em cards, incluindo foto, avaliação, localização, disponibilidade, matérias e biografia.
+// 10. Caso não existam tutores filtrados, exibe estado vazio com botão para limpar filtros.
+
+
+//-----------------CÓDIGO COMENTADO-----------------
+
+import React, { useEffect, useState } from 'react' // Importa React e hooks de estado e efeito
+import { Link } from 'react-router-dom' // Componente para criar links entre páginas
+import { motion } from 'framer-motion' // Para animações suaves
+import { Card } from './ui/card' // Componente de cartão visual
+import { Button } from './ui/button' // Botão estilizado
+import { Input } from './ui/input' // Campo de input estilizado
+import { supabase, TutorData } from '../lib/supabase' // Supabase e tipo de dados do tutor
+import { Search, Star, Mail, MapPin, Clock } from 'lucide-react' // Ícones usados na interface
 
 // Mock data for demonstration
-const mockTutors: (TutorData & { rating: number; location: string; availability: string; profilePicture: string })[] = [
+const mockTutors: (TutorData & { rating: number; location: string; availability: string; profilePicture: string })[] = [ // Array de tutores fictícios
   {
     id: '1',
     user_id: 'mock-1',
@@ -90,47 +111,48 @@ const mockTutors: (TutorData & { rating: number; location: string; availability:
 ]
 
 export const Marketplace = () => {
-  const [tutors, setTutors] = useState(mockTutors)
-  const [filteredTutors, setFilteredTutors] = useState(mockTutors)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedSubject, setSelectedSubject] = useState('all')
+  const [tutors, setTutors] = useState(mockTutors) // Estado para armazenar todos os tutores
+  const [filteredTutors, setFilteredTutors] = useState(mockTutors) // Estado para tutores filtrados
+  const [searchTerm, setSearchTerm] = useState('') // Estado para texto de pesquisa
+  const [selectedSubject, setSelectedSubject] = useState('all') // Estado para disciplina selecionada
 
   useEffect(() => {
-    // In the future, load real tutors from Supabase
+    // Futuramente aqui carregaremos os tutores reais do Supabase
     // loadTutors()
   }, [])
 
-  useEffect(() => {
+  useEffect(() => { // Filtra tutores quando searchTerm, selectedSubject ou tutors mudam
     let filtered = tutors
 
-    if (searchTerm) {
+    if (searchTerm) { // Se houver termo de pesquisa
       filtered = filtered.filter(tutor =>
-        tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tutor.name.toLowerCase().includes(searchTerm.toLowerCase()) || // Pesquisa pelo nome
         tutor.subjects?.some(subject => 
-          subject.toLowerCase().includes(searchTerm.toLowerCase())
+          subject.toLowerCase().includes(searchTerm.toLowerCase()) // Pesquisa por matéria
         ) ||
-        tutor.location.toLowerCase().includes(searchTerm.toLowerCase())
+        tutor.location.toLowerCase().includes(searchTerm.toLowerCase()) // Pesquisa por localização
       )
     }
 
-    if (selectedSubject !== 'all') {
+    if (selectedSubject !== 'all') { // Se uma disciplina específica foi selecionada
       filtered = filtered.filter(tutor =>
         tutor.subjects?.some(subject =>
-          subject.toLowerCase().includes(selectedSubject.toLowerCase())
+          subject.toLowerCase().includes(selectedSubject.toLowerCase()) // Filtra por disciplina
         )
       )
     }
 
-    setFilteredTutors(filtered)
+    setFilteredTutors(filtered) // Atualiza tutores filtrados
   }, [searchTerm, selectedSubject, tutors])
 
+  // Função para enviar email ao tutor
   const handleContactTutor = (email: string, tutorName: string) => {
-    const subject = encodeURIComponent(`Interessado em explicações - Plastudo`)
-    const body = encodeURIComponent(`Olá ${tutorName},\n\nEncontrei o seu perfil na Plastudo e estou interessado(a) nas suas explicações.\n\nPodemos conversar sobre disponibilidade e condições?\n\nObrigado(a)!`)
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`
+    const subject = encodeURIComponent(`Interessado em explicações - Plastudo`) // Assunto do email
+    const body = encodeURIComponent(`Olá ${tutorName},\n\nEncontrei o seu perfil na Plastudo e estou interessado(a) nas suas explicações.\n\nPodemos conversar sobre disponibilidade e condições?\n\nObrigado(a)!`) // Corpo do email
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}` // Abre o cliente de email
   }
 
-  const subjects = ['all', 'Matemática', 'Física', 'Química', 'Biologia', 'Português', 'Inglês', 'História']
+  const subjects = ['all', 'Matemática', 'Física', 'Química', 'Biologia', 'Português', 'Inglês', 'História'] // Lista de disciplinas
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-green-50 to-blue-50 py-8">
@@ -154,23 +176,23 @@ export const Marketplace = () => {
           {/* Search and Filters */}
           <div className="max-w-4xl mx-auto space-y-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" /> {/* Ícone de pesquisa */}
               <Input
                 type="text"
                 placeholder="Pesquisar por nome, disciplina ou localização..."
                 value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+                onChange={(e) => setSearchTerm(e.target.value)} // Atualiza searchTerm
                 className="pl-10 py-3 text-lg border-2 border-gray-200 rounded-2xl focus:border-green-400"
               />
             </div>
 
             <div className="flex flex-wrap gap-2 justify-center">
-              {subjects.map((subject) => (
+              {subjects.map((subject) => ( // Botões de filtro por disciplina
                 <Button
                   key={subject}
                   variant={selectedSubject === subject ? "default" : "outline"}
                   size="sm"
-                  onClick={() => setSelectedSubject(subject)}
+                  onClick={() => setSelectedSubject(subject)} // Atualiza disciplina selecionada
                   className={
                     selectedSubject === subject
                       ? "bg-gradient-to-r from-green-500 to-blue-500 text-white"
@@ -198,7 +220,7 @@ export const Marketplace = () => {
 
         {/* Tutors Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredTutors.map((tutor, index) => (
+          {filteredTutors.map((tutor, index) => ( // Para cada tutor filtrado
             <motion.div
               key={tutor.id}
               initial={{ opacity: 0, y: 30 }}
@@ -213,19 +235,19 @@ export const Marketplace = () => {
                     className="w-20 h-20 rounded-full mx-auto mb-3 object-cover ring-4 ring-yellow-100 group-hover:ring-green-200 transition-all"
                   />
                   <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                    {tutor.name}
+                    {tutor.name} {/* Nome do tutor */}
                   </h3>
                   <div className="flex items-center justify-center space-x-1 mb-2">
-                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                    <span className="text-sm font-medium text-gray-700">{tutor.rating}</span>
+                    <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" /> {/* Ícone de estrela */}
+                    <span className="text-sm font-medium text-gray-700">{tutor.rating}</span> {/* Avaliação */}
                   </div>
                   <div className="flex items-center justify-center space-x-4 text-sm text-gray-500 mb-3">
                     <div className="flex items-center space-x-1">
-                      <MapPin className="h-4 w-4" />
+                      <MapPin className="h-4 w-4" /> {/* Localização */}
                       <span>{tutor.location}</span>
                     </div>
                     <div className="flex items-center space-x-1">
-                      <Clock className="h-4 w-4" />
+                      <Clock className="h-4 w-4" /> {/* Disponibilidade */}
                       <span>{tutor.availability}</span>
                     </div>
                   </div>
@@ -242,7 +264,7 @@ export const Marketplace = () => {
                         {subject}
                       </span>
                     ))}
-                    {tutor.subjects && tutor.subjects.length > 3 && (
+                    {tutor.subjects && tutor.subjects.length > 3 && ( // Se houver mais de 3 disciplinas
                       <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">
                         +{tutor.subjects.length - 3} mais
                       </span>
@@ -251,11 +273,11 @@ export const Marketplace = () => {
                 </div>
 
                 <p className="text-gray-600 text-sm mb-4 line-clamp-3">
-                  {tutor.bio}
+                  {tutor.bio} {/* Biografia resumida */}
                 </p>
 
                 <div className="space-y-2 mt-auto">
-                  <Link to={`/profile/${tutor.id}`}>
+                  <Link to={`/profile/${tutor.id}`}> {/* Link para perfil completo */}
                     <Button
                       variant="outline"
                       className="w-full group-hover:border-green-400 transition-colors"
@@ -264,7 +286,7 @@ export const Marketplace = () => {
                     </Button>
                   </Link>
                   <Button
-                    onClick={() => handleContactTutor(tutor.email, tutor.name)}
+                    onClick={() => handleContactTutor(tutor.email, tutor.name)} // Botão para enviar email
                     className="w-full bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600"
                   >
                     <Mail className="h-4 w-4 mr-2" />
@@ -277,14 +299,14 @@ export const Marketplace = () => {
         </div>
 
         {/* Empty State */}
-        {filteredTutors.length === 0 && (
+        {filteredTutors.length === 0 && ( // Se não houver tutores filtrados
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-12"
           >
             <div className="text-gray-400 mb-4">
-              <Search className="h-16 w-16 mx-auto" />
+              <Search className="h-16 w-16 mx-auto" /> {/* Ícone grande */}
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">
               Nenhum explicador encontrado
@@ -294,8 +316,8 @@ export const Marketplace = () => {
             </p>
             <Button
               onClick={() => {
-                setSearchTerm('')
-                setSelectedSubject('all')
+                setSearchTerm('') // Limpa pesquisa
+                setSelectedSubject('all') // Limpa filtro de disciplina
               }}
               variant="outline"
             >
@@ -306,4 +328,4 @@ export const Marketplace = () => {
       </div>
     </div>
   )
-}
+} 

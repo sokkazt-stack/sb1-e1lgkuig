@@ -16,7 +16,7 @@
 // 9. Se houver perfil de tutor, mostra detalhes do perfil: área de expertise, disciplinas e biografia, com botão para editar.
 // 10. Caso não haja perfil de tutor, oferece botão para criar o perfil através de questionário. Inclui também um cartão de ações rápidas.
 
-//-----------------CÓDIGO COMENTADO-----------------
+//-----------------CODE-----------------
 
 import React, { useEffect, useState } from 'react' // Importa React e hooks de estado e efeito
 import { useNavigate } from 'react-router-dom' // Hook para navegar entre páginas

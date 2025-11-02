@@ -16,7 +16,7 @@
 // 9. Renderiza interface de carregamento, mensagem de erro ou o perfil completo do tutor com cartões e animações.
 // 10. Mostra estatísticas, matérias, biografia, formação, experiência e botões de edição/contacto conforme o utilizador.
 
-//-----------------CÓDIGO COMENTADO-----------------
+//-----------------CODE-----------------
 
 import React, { useEffect, useState } from 'react' // Importa React e hooks para gerir estado e efeitos
 import { useParams, useNavigate } from 'react-router-dom' // Para pegar id da URL e navegar entre páginas

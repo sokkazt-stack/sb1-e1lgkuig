@@ -17,7 +17,7 @@
 // 10. Caso não existam tutores filtrados, exibe estado vazio com botão para limpar filtros.
 
 
-//-----------------CÓDIGO COMENTADO-----------------
+//-----------------CODE-----------------
 
 import React, { useEffect, useState } from 'react' // Importa React e hooks de estado e efeito
 import { Link } from 'react-router-dom' // Componente para criar links entre páginas
